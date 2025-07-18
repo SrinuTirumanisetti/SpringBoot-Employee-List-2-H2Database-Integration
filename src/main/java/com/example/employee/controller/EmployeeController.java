@@ -27,5 +27,10 @@ public class EmployeeController{
     public ArrayList<Employee> getEmployees(){
         return service.getEmployees();
     }
+
+    @PostMapping("/employees")
+    public Employee addEmployee(@RequestBody Employee employee){
+        return service.addEmployee(employee);
+    }
 }
 

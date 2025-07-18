@@ -7,4 +7,5 @@ import com.example.employee.model.Employee;
 
 public interface EmployeeRepository{
     ArrayList<Employee> getEmployees();
+    Employee addEmployee(Employee employee);
 }
