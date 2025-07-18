@@ -55,15 +55,36 @@ public class EmployeeH2Service implements EmployeeRepository{
 
     @Override
     public Employee getEmployeeById(int employeeId){
-        Employee employee = 
-        db.queryForObject(
-           "SELECT * FROM EMPLOYEELIST WHERE employeeId=?",
-            new EmployeeRowMapper(),
-            employeeId
-        );
-        return employee;
+        try {
+            return db.queryForObject(
+                "SELECT * FROM EMPLOYEELIST WHERE employeeId=?",
+                new EmployeeRowMapper(),
+                employeeId
+            );
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found");
+        }
     }
 
+
+    @Override
+    public Employee updateEmployee(int employeeId,Employee employee){
+        if(employee.getEmployeeName()!=null){
+            db.update("UPDATE EMPLOYEELIST SET employeeName=? where employeeId=?",employee.getEmployeeName(),employeeId);
+        }
+        if(employee.getEmail()!=null){
+            db.update("UPDATE EMPLOYEELIST SET email=? where employeeId=?",employee.getEmail(),employeeId);
+        }
+        if(employee.getDepartment()!=null){
+            db.update("UPDATE EMPLOYEELIST SET department=? where employeeId=?",employee.getDepartment(),employeeId);
+        }
+        return getEmployeeById(employeeId);
+    }
+
+    @Override
+    public void deleteEmployee(int employeeId){
+        db.update("DELETE FROM EMPLOYEELIST WHERE employeeId=?",employeeId);
+    }
 }
 
 
