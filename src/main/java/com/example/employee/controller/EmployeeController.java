@@ -32,5 +32,10 @@ public class EmployeeController{
     public Employee addEmployee(@RequestBody Employee employee){
         return service.addEmployee(employee);
     }
+
+    @GetMapping("/employees/{employeeId}")
+    public Employee getEmployeeById(@PathVariable("employeeId") int employeeId){
+        return service.getEmployeeById(employeeId);
+    }
 }
 

@@ -53,6 +53,17 @@ public class EmployeeH2Service implements EmployeeRepository{
         return savedEmployee;
     }
 
+    @Override
+    public Employee getEmployeeById(int employeeId){
+        Employee employee = 
+        db.queryForObject(
+           "SELECT * FROM EMPLOYEELIST WHERE employeeId=?",
+            new EmployeeRowMapper(),
+            employeeId
+        );
+        return employee;
+    }
+
 }
 
 
